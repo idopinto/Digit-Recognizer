@@ -20,134 +20,42 @@ using namespace std;
 class Matrix {
  public:
   // Constructor
-  Matrix (int rows, int cols) : _rows (rows), _cols (cols)
-  {
-    _mat = new float[_rows * _cols];
-    for (int i = 0; i < _rows * _cols; ++i)
-      {
-        _mat[i] = 0;
-      }
-  }
+  Matrix (int rows, int cols);
+
   // Default c'tor
-  Matrix () : Matrix (1, 1)
-  {}
+  Matrix ();
 
   // Copy c'tor
-  Matrix (const Matrix &other)
-  {
-    this->_rows = other._rows;
-    this->_cols = other._cols;
-    this->_mat = new float[_rows * _cols];
-    for (int i = 0; i < _rows * _cols; ++i)
-      {
-        this->_mat[i] = other._mat[i];
-      }
-  }
-
+  Matrix (const Matrix &other);
   // Destructor
-  ~Matrix ()
-  {
-    delete[] _mat;
-  }
+  ~Matrix ();
 
   // Getters
-  int get_rows() const
-  {
-    return this->_rows;
-  }
+  int get_rows() const;
+  int get_cols() const;
 
-  int get_cols() const
-  {
-    return this->_cols;
-  }
+  // methods & functions
+  Matrix& transpose(); // FIXME
+  Matrix& vectorize();
+  void plain_print() const;
+  Matrix dot(Matrix &m);
+  float norm() const;
+  std::istream& read_binary_File(std::istream, Matrix m);
 
-  // Transpose()
-  Matrix& transpose()
-  {
-    for(int j=0;j<_cols;++j)
-      {
-        for(int i=0;i<_rows;++i)
-          {
-            _mat[j*_rows+i] = _mat[i*_cols+j];
-          }
-      }
-    return *this;
-  }
+  // operators
+  Matrix operator+(const Matrix &b) const; /*Matrix addition*/
+  Matrix &operator= (const Matrix &other); /* Assignment */
+  Matrix operator*(const Matrix &b) const;/* Matrix multiplication */
+  Matrix& operator*(float c);/* Scalar multiplication on the right */
+  friend Matrix& operator*(float c, Matrix &rhs); /* Scalar multiplication on the left */
+  float& operator() (int i,int j);/* Parenthesis indexing */
+  const float& operator[] (int i) const;/* const Parenthesis indexing */
+  float& operator[] (int i); /* Brackets indexing */
+  const float& operator() (int i,int j) const; /*Output stream*/
 
-  //Vectorize()
-  Matrix& vectorize()
-  {
-    _rows = _rows *_cols;
-    _cols  = 1;
-    return *this;
-  }
 
-  // plain_print()
-  void plain_print() const
-  {
-    for(int i=0;i<_rows;++i)
-      {
-        for(int j=0;j<_cols;++j)
-          {
-            cout<<_mat[i*_cols+j]<<" ";
-          }
-          cout<<endl;
-      }
-  }
-
-  // Dot(Matrix)
-  Matrix dot(Matrix &m)
-  {
-
-    if (m._rows == _rows && m._cols == _cols)
-      {
-        Matrix dot_product(_rows,_cols);
-        for(int i=0;i<_rows;++i)
-          {
-            for(int j=0;j<_cols;++j)
-              {
-                dot_product[i*_cols+j] = _mat[i*_cols+j]*m._mat[i*_cols+j];
-              }
-          }
-        return dot_product;
-      }
-    return nullptr;
-  }
-  // Norm
-  float norm() const
-  {
-    float sum = 0;
-    for(int i=0;i<_rows;++i)
-      {
-        for(int j=0;j<_cols;++j)
-          {
-            sum +=(float)pow(_mat[i*_rows+j],2.0);
-          }
-      }
-    return sqrt (sum);
-  }
-//read_binary_File(istream, Matrix) friend i think
-
-  // operator= copy assignment
-  Matrix &operator= (const Matrix &other)
-  {
-    if (this != &other)
-      {
-        // de-allocates old allocations
-        delete[] _mat;
-        //copy rows&cols
-        this->_rows = other._rows;
-        this->_cols = other._cols;
-        this->_mat = new float[_rows * _cols];
-        for (int i = 0; i < _rows * _cols; ++i)
-          {
-            this->_mat[i] = other._mat[i];
-          }
-      }
-    return *this;
-  }
-
-  Matrix operator+(const Matrix &a, const Matrix &b);
+  Matrix& operator+=(const Matrix& rhs);/*Matrix addition accumulation*/
+  friend std::ostream& operator<<(std::ostream& os,const Matrix& m);
 
  private:
   int _rows;
@@ -155,5 +63,6 @@ class Matrix {
   float *_mat;
 
 };
+
 
 #endif //MATRIX_H
