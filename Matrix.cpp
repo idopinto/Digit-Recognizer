@@ -39,20 +39,25 @@ Matrix::~Matrix ()
   delete[] _mat;
 }
 
+void swap(int &a,int &b)
+{
+  int temp = a;
+  a = b;
+  b = temp;
+}
 Matrix& Matrix:: transpose ()
 {
-  float *mat = this->_mat;
-  int temp = _rows;
-  _rows = _cols;
-  _cols = temp;
+  auto *t = new float[_rows*_cols];
   for (int i = 0; i < _rows; ++i)
     {
       for (int j = 0; j < _cols; ++j)
         {
-          this->_mat[i * _cols + j] = mat[j * _rows + i];
+          t[j*_rows+i] = _mat[i*_cols + j];
         }
     }
-
+    delete[] _mat;
+  this->_mat = t;
+  swap(_rows,_cols);
   return *this;
 }
 
@@ -109,9 +114,20 @@ float Matrix:: norm () const
   return sqrt (sum);
 }
 
-std::istream &Matrix::read_binary_File (std::istream, Matrix m)
+std::istream& read_binary_file(istream& is, Matrix &m)
 {
-  return <#initializer#>;
+  for(int i = 0; i < m._rows; i++)
+    {
+      for(int j=0;j<m._cols;j++)
+        {
+          is.read((char *) &m(i,j), sizeof(float));
+        }
+    }
+  if(is.gcount() != m._rows*m._cols*sizeof(float ))
+    {
+      exit(EXIT_FAILURE);
+    }
+    return is;
 }
 
 

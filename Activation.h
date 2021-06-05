@@ -11,7 +11,20 @@ enum ActivationType
     RELU,
     SOFTMAX
 };
+#include <iostream>
+using namespace std;
 
-// Insert Activation class here...
+class Activation{
+ public:
+  Activation(ActivationType act_type);
+
+  ActivationType get_activation_type() const;
+
+  Matrix operator()(Matrix x) const;
+
+ private:
+  ActivationType  _act_type;
+
+};
 
 #endif //ACTIVATION_H

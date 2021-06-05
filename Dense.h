@@ -3,6 +3,20 @@
 
 #include "Activation.h"
 
-// implement class Dense here...
+class Dense{
+ public:
+  Dense(w,bias,activation_type);
+
+  Matrix get_weights()const;
+  Matrix get_bias()const;
+  Activation get_activation()const;
+
+  Matrix& operator()(Matrix x) const;
+
+ private:
+  Matrix _w;
+ Matrix _bias;
+ Activation _activation_type;
+};
 
 #endif //C___PROJECT_DENSE_H

@@ -40,7 +40,7 @@ class Matrix {
   void plain_print() const;
   Matrix dot(Matrix &m);
   float norm() const;
-  std::istream& read_binary_File(std::istream, Matrix m);
+  friend std::istream& read_binary_file(istream& is, Matrix &m);
 
   // operators
   Matrix operator+(const Matrix &b) const; /*Matrix addition*/
@@ -51,11 +51,11 @@ class Matrix {
   float& operator() (int i,int j);/* Parenthesis indexing */
   const float& operator[] (int i) const;/* const Parenthesis indexing */
   float& operator[] (int i); /* Brackets indexing */
-  const float& operator() (int i,int j) const; /*Output stream*/
+  const float& operator() (int i,int j) const;
 
 
   Matrix& operator+=(const Matrix& rhs);/*Matrix addition accumulation*/
-  friend std::ostream& operator<<(std::ostream& os,const Matrix& m);
+  friend std::ostream& operator<<(std::ostream& os,const Matrix& m); /*Output stream*/
 
  private:
   int _rows;
