@@ -5,18 +5,18 @@
 
 class Dense{
  public:
-  Dense(Matrix& w,Matrix& bias, Activation act);
+  Dense(Matrix& w, Matrix& bias, ActivationType act);
 
   Matrix get_weights()const;
   Matrix get_bias()const;
   ActivationType get_activation()const;
 
-  Matrix operator()(const Matrix& x) const;
+  Matrix& operator()(Matrix& x) const;
 
  private:
   Matrix _w;
- Matrix _bias;
- Activation _act;
+  Matrix _bias;
+  Activation _act;
 };
 
 #endif //C___PROJECT_DENSE_H

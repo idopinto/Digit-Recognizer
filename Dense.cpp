@@ -2,7 +2,7 @@
 // Created by Ido_2 on 6/5/2021.
 //
 #include "Dense.h"
-Dense:: Dense(Matrix& w,Matrix& bias,Activation activation_type): _act(activation_type)
+Dense:: Dense(Matrix& w, Matrix& bias, ActivationType activation_type): _act(activation_type)
 {
   _w = w;
   _bias = bias;
@@ -19,9 +19,12 @@ ActivationType Dense:: get_activation() const
 {
   return _act.get_activation_type();
 }
-Matrix Dense:: operator()(const Matrix& x) const
+Matrix& Dense:: operator()( Matrix& x) const
 {
-  Matrix output = _act((_w * x) +_bias);
-  return output;
+
+  x = _act(_w * x +_bias);
+//  x.plain_print();
+//  cout<<"-----"<<endl;
+  return x;
 }
 

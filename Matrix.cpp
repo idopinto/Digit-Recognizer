@@ -45,6 +45,7 @@ void swap(int &a,int &b)
   a = b;
   b = temp;
 }
+
 Matrix& Matrix:: transpose ()
 {
   auto *t = new float[_rows*_cols];
@@ -97,7 +98,7 @@ Matrix Matrix:: dot (Matrix &m)
         }
       return dot_product;
     }
-  std::cerr<<" Invalid dimensions exiting with code 1"<<endl;
+  std::cerr<<DIM_ERR<<endl;
   exit (EXIT_FAILURE);
 }
 // Norm
@@ -113,21 +114,11 @@ float Matrix:: norm () const
     }
   return sqrt (sum);
 }
-
-std::istream& read_binary_file(istream& is, Matrix &m)
+ifstream& read_binary_file(std::ifstream& is, Matrix &m)
 {
-  for(int i = 0; i < m._rows; i++)
-    {
-      for(int j=0;j<m._cols;j++)
-        {
-          is.read((char *) &m(i,j), sizeof(float));
-        }
-    }
-  if(is.gcount() != m._rows*m._cols*sizeof(float ))
-    {
-      exit(EXIT_FAILURE);
-    }
-    return is;
+  unsigned long size = m._cols * m._rows*sizeof(float);
+  is.read ((char*)m._mat,(long)size);
+  return is;
 }
 
 

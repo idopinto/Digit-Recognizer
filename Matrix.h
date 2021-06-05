@@ -6,6 +6,7 @@
 #include <cstring>
 #include <iostream>
 #include <cmath>
+#include <fstream>
 /**
  * @struct matrix_dims
  * @brief Matrix dimensions container. Used in MlpNetwork.h and main.cpp
@@ -35,12 +36,12 @@ class Matrix {
   int get_cols() const;
 
   // methods & functions
-  Matrix& transpose(); // FIXME
+  Matrix& transpose();
   Matrix& vectorize();
   void plain_print() const;
   Matrix dot(Matrix &m);
   float norm() const;
-  friend std::istream& read_binary_file(istream& is, Matrix &m);
+  friend std::ifstream& read_binary_file(std::ifstream& is, Matrix &m);
 
   // operators
   Matrix operator+(const Matrix &b) const; /*Matrix addition*/
@@ -48,9 +49,9 @@ class Matrix {
   Matrix operator*(const Matrix &b) const;/* Matrix multiplication */
   Matrix& operator*(float c);/* Scalar multiplication on the right */
   friend Matrix& operator*(float c, Matrix &rhs); /* Scalar multiplication on the left */
-  float& operator() (int i,int j);/* Parenthesis indexing */
   const float& operator[] (int i) const;/* const Parenthesis indexing */
   float& operator[] (int i); /* Brackets indexing */
+  float& operator() (int i,int j);/* Parenthesis indexing */
   const float& operator() (int i,int j) const;
 
 
