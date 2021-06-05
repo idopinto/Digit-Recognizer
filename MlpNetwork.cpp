@@ -30,7 +30,7 @@ digit MlpNetwork:: operator()(Matrix input) const
   digit result{0, input[0]};
   for(int i=1; i<input.get_rows();i++)
     {
-      if(result.probability > input[i])
+      if(result.probability < input[i])
         {
           result.value = i;
           result.probability = input[i];
