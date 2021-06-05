@@ -49,10 +49,10 @@ class Matrix {
   Matrix operator*(const Matrix &b) const;/* Matrix multiplication */
   Matrix& operator*(float c);/* Scalar multiplication on the right */
   friend Matrix& operator*(float c, Matrix &rhs); /* Scalar multiplication on the left */
-  const float& operator[] (int i) const;/* const Parenthesis indexing */
+  float operator[] (int i) const;/* const Parenthesis indexing */
   float& operator[] (int i); /* Brackets indexing */
   float& operator() (int i,int j);/* Parenthesis indexing */
-  const float& operator() (int i,int j) const;
+  float operator() (int i,int j) const;
 
 
   Matrix& operator+=(const Matrix& rhs);/*Matrix addition accumulation*/

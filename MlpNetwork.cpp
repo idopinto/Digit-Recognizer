@@ -19,18 +19,14 @@ MlpNetwork:: MlpNetwork(Matrix *weights,Matrix *biases)
 
 digit MlpNetwork:: operator()(Matrix input) const
 {
-  input.plain_print();
-  cout<<"------------------"<<endl;
   for(int i=0;i<MLP_SIZE-1;i++)
     {
       Dense layer(_weights[i],_biases[i],RELU);
       input = layer(input);
-      input.plain_print();
-      cout<<"------------------"<<endl;
     }
   Dense layer(_weights[3],_biases[3],SOFTMAX);
   input = layer(input);
-
+  input.plain_print();
   digit result{0, input[0]};
   for(int i=1; i<input.get_rows();i++)
     {

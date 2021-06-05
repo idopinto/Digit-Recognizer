@@ -21,10 +21,7 @@ ActivationType Dense:: get_activation() const
 }
 Matrix& Dense:: operator()( Matrix& x) const
 {
-
-  x = _act(_w * x +_bias);
-//  x.plain_print();
-//  cout<<"-----"<<endl;
+  x = _act(_w*x +_bias);
   return x;
 }
 

@@ -170,8 +170,7 @@ Matrix Matrix:: operator* (const Matrix &b) const
         {
           for (int k = 0; k < _cols; ++k)
             {
-              mult[i * mult._cols + j] +=
-                  _mat[i *_cols + k] * b[k * b._cols + j];
+              mult[i * mult._cols + j] +=_mat[i *_cols + k] * b[k * b._cols + j];
             }
         }
     }
@@ -216,7 +215,7 @@ Matrix& Matrix:: operator+=(const Matrix& rhs)
   exit (EXIT_FAILURE);
 }
 
-const float &Matrix::operator() (int i, int j) const
+float Matrix::operator() (int i, int j) const
 {
   return _mat[i*_cols+j];
 }
@@ -225,7 +224,7 @@ float &Matrix::operator() (int i, int j)
   return _mat[i*_cols+j];
 }
 
-const float& Matrix::operator[] (int i) const
+float Matrix::operator[] (int i) const
 {
   return _mat[i];
 }
