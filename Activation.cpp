@@ -28,20 +28,21 @@ void soft_max_function(const Matrix& x,Matrix &m)
     }
     m = m * (1/sum) ;
 }
-Matrix& Activation:: operator()(const Matrix& x) const
+Matrix Activation:: operator()(const Matrix& x) const
 {
-//  Matrix output(x.get_rows(),1);
+  Matrix output(x.get_rows(),1);
   switch(_act_type) {
       case RELU :
         {
           relu_function (x,output);
         }
+        break;
       case SOFTMAX  :
         {
           soft_max_function (x,output);
         }
+        break;
     }
-    return x;
-//    return output;
+    return output;
 }
 

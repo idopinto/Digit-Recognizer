@@ -22,11 +22,9 @@ class Matrix {
  public:
   // Constructor
   Matrix (int rows, int cols);
-
-  // Default c'tor
+  // Default Constructor
   Matrix ();
-
-  // Copy c'tor
+  // Copy Constructor
   Matrix (const Matrix &other);
   // Destructor
   ~Matrix ();
@@ -35,7 +33,7 @@ class Matrix {
   int get_rows() const;
   int get_cols() const;
 
-  // methods & functions
+  // Methods & Functions
   Matrix& transpose();
   Matrix& vectorize();
   void plain_print() const;
@@ -43,19 +41,17 @@ class Matrix {
   float norm() const;
   friend std::ifstream& read_binary_file(std::ifstream& is, Matrix &m);
 
-  // operators
+  // Operators
   Matrix operator+(const Matrix &b) const; /*Matrix addition*/
-  Matrix &operator= (const Matrix &other); /* Assignment */
+  Matrix& operator= (const Matrix &other); /* Assignment */
   Matrix operator*(const Matrix &b) const;/* Matrix multiplication */
   Matrix& operator*(float c);/* Scalar multiplication on the right */
   friend Matrix& operator*(float c, Matrix &rhs); /* Scalar multiplication on the left */
+  Matrix& operator+=(const Matrix& rhs);/*Matrix addition accumulation*/
   float operator[] (int i) const;/* const Parenthesis indexing */
   float& operator[] (int i); /* Brackets indexing */
   float& operator() (int i,int j);/* Parenthesis indexing */
   float operator() (int i,int j) const;
-
-
-  Matrix& operator+=(const Matrix& rhs);/*Matrix addition accumulation*/
   friend std::ostream& operator<<(std::ostream& os,const Matrix& m); /*Output stream*/
 
  private:

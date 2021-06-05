@@ -17,7 +17,7 @@ MlpNetwork:: MlpNetwork(Matrix *weights,Matrix *biases)
     }
 }
 
-digit MlpNetwork:: operator()(Matrix input) const
+digit MlpNetwork:: operator()(Matrix input)
 {
   for(int i=0;i<MLP_SIZE-1;i++)
     {

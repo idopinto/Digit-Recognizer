@@ -23,7 +23,7 @@ class MlpNetwork{
  public:
   MlpNetwork(Matrix *weights,Matrix *biases);
 
-  digit operator()(Matrix input) const;
+  digit operator()(Matrix input);
 
  private:
   Matrix *_weights;

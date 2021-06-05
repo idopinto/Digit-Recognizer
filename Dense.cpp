@@ -19,8 +19,9 @@ ActivationType Dense:: get_activation() const
 {
   return _act.get_activation_type();
 }
-Matrix& Dense:: operator()( Matrix& x) const
+Matrix& Dense:: operator()(Matrix& x) const
 {
+
   x = _act(_w*x +_bias);
   return x;
 }

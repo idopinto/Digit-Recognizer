@@ -20,7 +20,7 @@ class Activation{
 
   ActivationType get_activation_type() const;
 
-  Matrix& operator()(Matrix& x) const;
+  Matrix operator()(const Matrix& x) const;
 
  private:
   ActivationType  _act_type;
