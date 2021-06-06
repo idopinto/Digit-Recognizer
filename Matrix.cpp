@@ -1,7 +1,14 @@
 
 #include "Matrix.h"
+#include <cmath>
+
+using std::cout;
+using std::endl;
+using std::cerr;
+
 #define DIM_ERR "Invalid dimensions exiting with code 1"
 #define THRESHOLD 0.1
+
 Matrix::Matrix (int rows, int cols) : _rows (rows), _cols (cols)
 {
   _mat = new float[_rows * _cols];
@@ -10,6 +17,7 @@ Matrix::Matrix (int rows, int cols) : _rows (rows), _cols (cols)
       _mat[i] = 0;
     }
 }
+
 Matrix::Matrix () : Matrix (1, 1)
 {}
 
@@ -101,7 +109,7 @@ Matrix Matrix:: dot (Matrix &m)
   cerr<<DIM_ERR<<endl;
   exit (EXIT_FAILURE);
 }
-// Norm
+
 float Matrix:: norm () const
 {
   float sum = 0;
@@ -112,9 +120,10 @@ float Matrix:: norm () const
           sum += (float) pow (_mat[i * _cols + j], 2.0);
         }
     }
-  return sqrt (sum);
+  return (float)std::sqrt (sum);
 }
-ifstream& read_binary_file(std::ifstream& is, Matrix &m)
+
+std::ifstream& read_binary_file(std::ifstream& is, Matrix &m)
 {
   unsigned long size = m._cols * m._rows*sizeof(float);
   is.read ((char*)m._mat,(long)size);
@@ -221,7 +230,7 @@ float Matrix::operator() (int i, int j) const
 {
   return _mat[i*_cols+j];
 }
-float &Matrix::operator() (int i, int j)
+float& Matrix::operator() (int i, int j)
 {
   return _mat[i*_cols+j];
 }
@@ -235,7 +244,7 @@ float& Matrix::operator[] (int i)
   return _mat[i];
 }
 
-std::ostream &operator<< (ostream &os, const Matrix &m)
+std::ostream &operator<< (std::ostream &os, const Matrix &m)
 {
   for(int i=0;i<m._rows;++i)
     {
