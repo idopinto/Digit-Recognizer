@@ -98,7 +98,7 @@ Matrix Matrix:: dot (Matrix &m)
         }
       return dot_product;
     }
-  std::cerr<<DIM_ERR<<endl;
+  cerr<<DIM_ERR<<endl;
   exit (EXIT_FAILURE);
 }
 // Norm
@@ -131,7 +131,8 @@ Matrix Matrix:: operator+ (const Matrix &b) const
         {
           for (int j = 0; j < _cols; ++j)
             {
-              add[i * _cols + j] = this->_mat[i * _cols + j] + b[i * _cols + j];
+              add[i * _cols + j] =\
+              this->_mat[i * _cols + j] + b[i * _cols + j];
             }
         }
       return add;
@@ -170,7 +171,8 @@ Matrix Matrix:: operator* (const Matrix &b) const
         {
           for (int k = 0; k < _cols; ++k)
             {
-              mult[i * mult._cols + j] +=_mat[i *_cols + k] * b[k * b._cols + j];
+              mult[i * mult._cols + j] +=\
+              _mat[i *_cols + k] * b[k * b._cols + j];
             }
         }
     }
