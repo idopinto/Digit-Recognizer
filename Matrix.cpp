@@ -1,7 +1,7 @@
 
 #include "Matrix.h"
 #define DIM_ERR "Invalid dimensions exiting with code 1"
-
+#define THRESHOLD 0.1
 Matrix::Matrix (int rows, int cols) : _rows (rows), _cols (cols)
 {
   _mat = new float[_rows * _cols];
@@ -239,7 +239,7 @@ std::ostream &operator<< (ostream &os, const Matrix &m)
     {
       for(int j = 0;j< m._cols;++j)
         {
-          if(m(i,j) >= 0.1)
+          if(m(i,j) >= THRESHOLD)
             {
               cout<<"  ";
             }
