@@ -12,11 +12,6 @@ using std::cerr;
 Matrix::Matrix (int rows, int cols) : _rows (rows), _cols (cols)
 {
   _mat = new float[_rows * _cols]{0};
-//  _mat = new float[_rows * _cols];
-//  for (int i = 0; i < _rows * _cols; ++i)
-//    {
-//      _mat[i] = 0;
-//    }
 }
 
 Matrix::Matrix () : Matrix (1, 1)
@@ -90,20 +85,15 @@ void Matrix:: plain_print () const
     }
 }
 
-// check if need by ref
 Matrix Matrix:: dot (Matrix &m)
 {
 
   if (m._rows == _rows && m._cols == _cols)
     {
       Matrix dot_product (_rows, _cols);
-      for (int i = 0; i < _rows; ++i)
+      for (int i = 0; i < _rows*_cols; ++i)
         {
-          for (int j = 0; j < _cols; ++j)
-            {
-              dot_product[i * _cols + j] =
-                  _mat[i * _cols + j] * m._mat[i * _cols + j];
-            }
+          dot_product[i] = _mat[i] * m._mat[i];
         }
       return dot_product;
     }
@@ -114,12 +104,9 @@ Matrix Matrix:: dot (Matrix &m)
 float Matrix:: norm () const
 {
   float sum = 0;
-  for (int i = 0; i < _rows; ++i)
+  for (int i = 0; i < _rows*_cols; ++i)
     {
-      for (int j = 0; j < _cols; ++j)
-        {
-          sum += (float) pow (_mat[i * _cols + j], 2.0);
-        }
+      sum += _mat[i]*_mat[i];
     }
   return (float)std::sqrt (sum);
 }
@@ -133,7 +120,7 @@ std::ifstream& read_binary_file(std::ifstream& is, Matrix &m)
     {
       return is;
     }
-  std::cout<<"Error: couldn't read file"<<std::endl;
+  cout<<"Error: couldn't read file"<<endl;
   return is;
 }
 
@@ -143,13 +130,9 @@ Matrix Matrix:: operator+ (const Matrix &b) const
   if(_rows == b._rows && _cols == b._cols)
     {
       Matrix add (_rows, _cols);
-      for (int i = 0; i < _rows; ++i)
+      for (int i = 0; i < _rows*_cols; ++i)
         {
-          for (int j = 0; j < _cols; ++j)
-            {
-              add[i * _cols + j] =\
-              this->_mat[i * _cols + j] + b[i * _cols + j];
-            }
+          add[i] =this->_mat[i] + b[i];
         }
       return add;
     }
