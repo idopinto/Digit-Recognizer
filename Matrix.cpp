@@ -11,11 +11,12 @@ using std::cerr;
 
 Matrix::Matrix (int rows, int cols) : _rows (rows), _cols (cols)
 {
-  _mat = new float[_rows * _cols];
-  for (int i = 0; i < _rows * _cols; ++i)
-    {
-      _mat[i] = 0;
-    }
+  _mat = new float[_rows * _cols]{0};
+//  _mat = new float[_rows * _cols];
+//  for (int i = 0; i < _rows * _cols; ++i)
+//    {
+//      _mat[i] = 0;
+//    }
 }
 
 Matrix::Matrix () : Matrix (1, 1)
@@ -125,8 +126,14 @@ float Matrix:: norm () const
 
 std::ifstream& read_binary_file(std::ifstream& is, Matrix &m)
 {
+  is.seekg(0,is.beg);
   unsigned long size = m._cols * m._rows*sizeof(float);
   is.read ((char*)m._mat,(long)size);
+  if(size == is.tellg())
+    {
+      return is;
+    }
+  std::cout<<"Error: couldn't read file"<<std::endl;
   return is;
 }
 
@@ -187,27 +194,23 @@ Matrix Matrix:: operator* (const Matrix &b) const
     }
   return mult;
 }
-Matrix& Matrix:: operator*(float c)
+Matrix Matrix:: operator*(float c)
 {
-  for (int i = 0; i < _rows; ++i)
+  Matrix m(*this);
+  for (int i = 0; i <_rows*_cols; ++i)
     {
-      for (int j = 0; j <_cols; ++j)
-        {
-          _mat[i * _cols + j] *= c;
-        }
+      m[i] *=c;
     }
-  return *this;
+  return m;
 }
-Matrix& operator*(float c, Matrix &rhs)
+Matrix operator*(float c, Matrix &rhs)
 {
-  for (int i = 0; i < rhs._rows; ++i)
+  Matrix m(rhs);
+  for (int i = 0; i < rhs._rows*rhs._cols; ++i)
     {
-      for (int j = 0; j < rhs._cols; ++j)
-        {
-          rhs._mat[i * rhs._cols + j] *= c;
-        }
+        m[i] *=c;
     }
-  return rhs;
+  return m;
 }
 Matrix& Matrix:: operator+=(const Matrix& rhs)
 {

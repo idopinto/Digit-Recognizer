@@ -9,7 +9,7 @@ class Dense{
 
   Matrix get_weights()const;
   Matrix get_bias()const;
-  ActivationType get_activation()const;
+  Activation get_activation()const;
 
   Matrix& operator()(Matrix& x) const;
 

@@ -1,6 +1,5 @@
-
-
 #include "MlpNetwork.h"
+
 MlpNetwork:: MlpNetwork(Matrix *weights,Matrix *biases)
 {
   _weights = weights;

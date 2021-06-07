@@ -13,7 +13,7 @@ ActivationType Activation:: get_activation_type() const
 
 void relu_function(const Matrix& x,Matrix &m)
 {
-  for(int i=0;i< x.get_rows();i++)
+  for(int i=0;i< m.get_rows()*m.get_cols();i++)
     {
       m[i] = (x[i] < 0) ? 0 : x[i];
     }
@@ -21,7 +21,7 @@ void relu_function(const Matrix& x,Matrix &m)
 void soft_max_function(const Matrix& x,Matrix &m)
 {
   float sum = 0;
-  for(int i=0;i < m.get_rows();i++)
+  for(int i=0;i < m.get_rows()*m.get_cols();i++)
     {
       m[i] = exp (x[i]);
       sum += m[i];
@@ -30,7 +30,7 @@ void soft_max_function(const Matrix& x,Matrix &m)
 }
 Matrix Activation:: operator()(const Matrix& x) const
 {
-  Matrix output(x.get_rows(),1);
+  Matrix output(x.get_rows(),x.get_cols());
   switch(_act_type) {
       case RELU :
         {

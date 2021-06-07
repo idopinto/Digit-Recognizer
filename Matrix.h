@@ -60,9 +60,9 @@ class Matrix {
   /* Matrix multiplication */
   Matrix operator*(const Matrix &b) const;
   /* Scalar multiplication on the right */
-  Matrix& operator*(float c);
+  Matrix operator*(float c);
   /* Scalar multiplication on the left */
-   friend Matrix& operator*(float c, Matrix &rhs);
+   friend Matrix operator*(float c, Matrix &rhs);
   /*Matrix addition accumulation*/
   Matrix& operator+=(const Matrix& rhs);
   /* const Brackets indexing */

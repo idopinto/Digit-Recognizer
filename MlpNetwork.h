@@ -28,9 +28,6 @@ class MlpNetwork{
  private:
   Matrix *_weights;
   Matrix *_biases;
-
-
-
 };
 
 #endif // MLPNETWORK_H
