@@ -118,7 +118,7 @@ void read_binary_file(std::istream& is, Matrix &m)
   int n_bytes = is.tellg();
   is.seekg (0,std::istream::beg);
   unsigned int n = n_bytes / sizeof(float);
-  if(m.get_rows()*m.get_cols() != n)
+  if((unsigned int)(m.get_rows()*m.get_cols()) != n)
     {
       cerr<<FILE_ERR<<endl;
       exit (EXIT_FAILURE);
