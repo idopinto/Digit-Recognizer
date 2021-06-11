@@ -7,6 +7,7 @@ using std::endl;
 using std::cerr;
 
 #define DIM_ERR "Invalid dimensions exiting with code 1"
+#define FILE_ERR "Error: Couldn't read full file existing with code 1"
 #define THRESHOLD 0.1
 
 Matrix::Matrix (int rows, int cols) : _rows (rows), _cols (cols)
@@ -111,17 +112,18 @@ float Matrix:: norm () const
   return (float)std::sqrt (sum);
 }
 
-std::ifstream& read_binary_file(std::ifstream& is, Matrix &m)
+void read_binary_file(std::istream& is, Matrix &m)
 {
-  is.seekg(0,is.beg);
-  unsigned long size = m._cols * m._rows*sizeof(float);
-  is.read ((char*)m._mat,(long)size);
-  if(size == is.tellg())
+  is.seekg(0,std::istream::end);
+  int n_bytes = is.tellg();
+  is.seekg (0,std::istream::beg);
+  unsigned int n = n_bytes / sizeof(float);
+  if(m.get_rows()*m.get_cols() != n)
     {
-      return is;
+      cerr<<FILE_ERR<<endl;
+      exit (EXIT_FAILURE);
     }
-  cout<<"Error: couldn't read file"<<endl;
-  return is;
+  is.read ((char*)m._mat,n_bytes);
 }
 
 

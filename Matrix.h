@@ -50,7 +50,7 @@ class Matrix {
   /*Returns the norm of Matrix*/
   float norm() const;
   /*Input stream function */
-  friend std::ifstream& read_binary_file(std::ifstream& is, Matrix &m);
+  friend void read_binary_file(std::istream& is, Matrix &m);
 
   // Operators
   /*Matrix addition*/
