@@ -3,7 +3,11 @@
 
 /*constructor*/
 Dense:: Dense(Matrix& w, Matrix& bias, ActivationType activation_type)
-:_act(activation_type),_w(w),_bias(bias){}
+:_act(activation_type)
+{
+  _w = w;
+  _bias = bias;
+}
 
 
 /*returns weights matrix*/
