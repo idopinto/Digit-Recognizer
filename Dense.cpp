@@ -18,9 +18,9 @@ Activation Dense:: get_activation() const
 {
   return _act;
 }
-Matrix& Dense:: operator()(Matrix& x) const
+Matrix Dense:: operator()(Matrix& x) const
 {
-  x = _act(_w*x +_bias);
-  return x;
+  Matrix m = _act(_w*x +_bias);
+  return m;
 }
 

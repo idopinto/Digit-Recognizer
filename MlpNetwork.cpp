@@ -1,36 +1,34 @@
 #include "MlpNetwork.h"
 
-MlpNetwork:: MlpNetwork(Matrix *weights,Matrix *biases)
+MlpNetwork:: MlpNetwork(Matrix *weights,Matrix *biases): _weights(weights),
+                                                          _biases(biases){}
+
+void make_prob_vec(Matrix &input,Matrix *weights,Matrix *biases)
 {
-  _weights = weights;
-  _biases = biases;
+  ActivationType arr[MLP_SIZE] = {RELU,RELU,RELU,SOFTMAX};
   for(int i=0;i<MLP_SIZE;i++)
     {
-      _weights[i] = weights[i];
+      Dense layer(weights[i],biases[i],arr[i]);
+      input = layer(input);
     }
-  for(int i=0;i<MLP_SIZE;i++)
+
+}
+digit find_max_prob(Matrix m)
+{
+  digit result{0, m[0]};
+  for(int i=1; i<m.get_rows();i++)
     {
-      _biases[i] = biases[i];
+      if(result.probability < m[i])
+        {
+          result.value = i;
+          result.probability = m[i];
+        }
     }
+    return result;
 }
 
 digit MlpNetwork:: operator()(Matrix input)
 {
-  for(int i=0;i<MLP_SIZE-1;i++)
-    {
-      Dense layer(_weights[i],_biases[i],RELU);
-      input = layer(input);
-    }
-  Dense layer(_weights[3],_biases[3],SOFTMAX);
-  input = layer(input);
-  digit result{0, input[0]};
-  for(int i=1; i<input.get_rows();i++)
-    {
-      if(result.probability < input[i])
-        {
-          result.value = i;
-          result.probability = input[i];
-        }
-    }
-  return result;
+  make_prob_vec (input,_weights,_biases);
+  return find_max_prob (input);
 }

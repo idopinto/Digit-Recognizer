@@ -3,6 +3,8 @@
 //
 #include "Activation.h"
 
+#include <cmath>
+
 
 Activation:: Activation(ActivationType act_type):_act_type(act_type){}
 
@@ -23,7 +25,7 @@ void soft_max_function(const Matrix& x,Matrix &m)
   float sum = 0;
   for(int i=0;i < m.get_rows()*m.get_cols();i++)
     {
-      m[i] = exp (x[i]);
+      m[i] = std::exp (x[i]);
       sum += m[i];
     }
     m = m * (1/sum) ;

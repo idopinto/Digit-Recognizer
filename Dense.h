@@ -11,7 +11,7 @@ class Dense{
   Matrix get_bias()const;
   Activation get_activation()const;
 
-  Matrix& operator()(Matrix& x) const;
+  Matrix operator()(Matrix& x) const;
 
  private:
   Matrix _w;

@@ -8,11 +8,21 @@ using std::cerr;
 
 #define DIM_ERR "Invalid dimensions exiting with code 1"
 #define FILE_ERR "Error: Couldn't read full file existing with code 1"
+#define MEM_ERR "Error: Memory allocation failure"
 #define THRESHOLD 0.1
 
 Matrix::Matrix (int rows, int cols) : _rows (rows), _cols (cols)
 {
-  _mat = new float[_rows * _cols]{0};
+  _mat = new (std::nothrow)float[_rows * _cols];
+  if(_mat == nullptr)
+    {
+      cerr<< MEM_ERR <<endl;
+      exit(EXIT_FAILURE);
+    }
+  for(int i=0;i<_rows*_cols;++i)
+    {
+      _mat[i] = 0;
+    }
 }
 
 Matrix::Matrix () : Matrix (1, 1)
@@ -22,7 +32,12 @@ Matrix::Matrix (const Matrix &other)
 {
   this->_rows = other._rows;
   this->_cols = other._cols;
-  this->_mat = new float[_rows * _cols];
+  this->_mat = new(std::nothrow)float[_rows * _cols];
+  if(_mat == nullptr)
+    {
+      cerr<< MEM_ERR<<endl;
+      exit(EXIT_FAILURE);
+    }
   for (int i = 0; i < _rows * _cols; ++i)
     {
       this->_mat[i] = other._mat[i];
@@ -53,7 +68,12 @@ void swap(int &a,int &b)
 
 Matrix& Matrix:: transpose ()
 {
-  auto *t = new float[_rows*_cols];
+  auto *t = new(std::nothrow)float[_rows*_cols];
+  if(t == nullptr)
+    {
+      cerr<< MEM_ERR<<endl;
+      exit(EXIT_FAILURE);
+    }
   for (int i = 0; i < _rows; ++i)
     {
       for (int j = 0; j < _cols; ++j)
@@ -150,7 +170,12 @@ Matrix& Matrix:: operator= (const Matrix &other)
       //copy rows&cols
       this->_rows = other._rows;
       this->_cols = other._cols;
-      this->_mat = new float[_rows * _cols];
+      this->_mat = new(std::nothrow) float[_rows * _cols];
+      if(_mat == nullptr)
+        {
+          cerr<< MEM_ERR<<endl;
+          exit(EXIT_FAILURE);
+        }
       for (int i = 0; i < _rows * _cols; ++i)
         {
           this->_mat[i] = other._mat[i];
