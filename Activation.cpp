@@ -21,12 +21,12 @@ Matrix Activation:: operator()(const Matrix& x) const
       case RELU :
         {
 
-          _relu(x,output);
+          relu(x,output);
         }
         break;
       case SOFTMAX  :
         {
-          _soft_max (x,output);
+          soft_max (x,output);
         }
         break;
     }
@@ -35,7 +35,7 @@ Matrix Activation:: operator()(const Matrix& x) const
 
 
 /*implemented relu function*/
-void Activation:: _relu(const Matrix& x,Matrix &m)
+void Activation:: relu(const Matrix& x,Matrix &m)
 {
   for(int i=0;i< m.get_rows()*m.get_cols();i++)
     {
@@ -43,7 +43,7 @@ void Activation:: _relu(const Matrix& x,Matrix &m)
     }
 }
 /*implemented soft_max*/
-void Activation:: _soft_max(const Matrix& x,Matrix &m)
+void Activation:: soft_max(const Matrix& x,Matrix &m)
 {
   float sum = 0;
   for(int i=0;i < m.get_rows()*m.get_cols();i++)

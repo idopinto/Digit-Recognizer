@@ -34,8 +34,8 @@ class Activation{
 
  private:
   ActivationType  _act_type; /* act type (RELO OR SOFTMAX)*/
-  static void _soft_max(const Matrix& x,Matrix &m); /*implemented soft_max*/
-  static void _relu(const Matrix& x,Matrix &m);/*implemented relu function*/
+  static void soft_max(const Matrix& x,Matrix &m); /*implemented soft_max*/
+  static void relu(const Matrix& x,Matrix &m);  /*implemented relu function*/
 };
 
 #endif //ACTIVATION_H
